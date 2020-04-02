@@ -1,0 +1,7 @@
+
+README in progress
+
+##### 
+
+build SDLHC jar with script ./build.sh
+launch a test case with script ./run_Trace.sh
