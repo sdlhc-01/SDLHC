@@ -1,6 +1,0 @@
-## Installation Process
-
-1 - build SDLHC jar with script ./build.sh
-2 - launch a test case with script ./run_Trace.sh
-
-In order to run SDLHC on every datasets contained in ./data, launch ./src/main/R/run_benchmark.r
