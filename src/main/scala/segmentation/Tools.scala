@@ -27,19 +27,19 @@ object Tools {
     inv(X.t * W * X) * X.t * W * Y
   }
 
-  def weightedLeastSquareResolutionForWeightsHigherThanPrecision(X: DenseMatrix[Double],
-                                                                 Y: DenseVector[Double],
+  def weightedLeastSquareResolutionForWeightsHigherThanPrecision(xMat: DenseMatrix[Double],
+                                                                 yMat: DenseVector[Double],
                                                                  weights: DenseVector[Double]): DenseVector[Double] = {
     val sliceRow: Seq[Int] = (0 until weights.length).filter(i => weights(i) > EM.precision)
     if (sliceRow.length <= 4) {
-      weightedLeastSquareResolution(X, Y, weights)
+      weightedLeastSquareResolution(xMat, yMat, weights)
     } else {
-      val XFiltered: DenseMatrix[Double] = X(sliceRow, ::).toDenseMatrix
-      val YFiltered = Y(sliceRow).toDenseVector
+      val xMatFiltered: DenseMatrix[Double] = xMat(sliceRow, ::).toDenseMatrix
+      val yMatFiltered = yMat(sliceRow).toDenseVector
       val weightsFiltered: DenseVector[Double] = weights(sliceRow).toDenseVector
       Try({
-        weightedLeastSquareResolution(XFiltered, YFiltered, weightsFiltered)
-      }) getOrElse weightedLeastSquareResolution(X, Y, weights)
+        weightedLeastSquareResolution(xMatFiltered, yMatFiltered, weightsFiltered)
+      }) getOrElse weightedLeastSquareResolution(xMat, yMat, weights)
     }
   }
 

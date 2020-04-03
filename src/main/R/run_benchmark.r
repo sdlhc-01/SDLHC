@@ -6,7 +6,7 @@ suppressMessages(suppressWarnings(InstallAndLoadLibraries()))
 
 dataPath = "../../../data"
 dataList = list.files(dataPath,full.names = TRUE)
-gridDictSize = 2:9
+gridDictSize = 2:12
 
 for(dataPath in dataList){
   

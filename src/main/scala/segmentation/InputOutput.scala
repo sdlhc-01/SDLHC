@@ -41,7 +41,6 @@ object InputOutput {
   def writeCoefsCsv(fileName: String, bestModelsToRead: Vector[EMFuncSegState], dataSample: List[DenseMatrix[Double]]): Try[Unit] = {
 
     val res: List[List[String]] = bestModelsToRead.indices.map(idx => {
-
       val res1: List[List[String]] = PostProcessing.getCoefWithInvarianceFromModel(bestModelsToRead(idx), dataSample(idx)(::, 0), dataSample(idx)(::, 1)
       ).map(coefs => List(idx.toString) ++ coefs.map(coef => coef.toString).toArray.toList)
       res1
@@ -59,7 +58,9 @@ object InputOutput {
     outputToCSv(fileName, header, addPrefix(res))
   }
 
-  def writeRegimesLimitsCsv(fileName: String, bestModelsToRead: List[EMFuncSegState], dataSample: List[DenseMatrix[Double]]): Try[Unit] = {
+  def writeRegimesLimitsCsv(fileName: String,
+                            bestModelsToRead: List[EMFuncSegState],
+                            dataSample: List[DenseMatrix[Double]]): Try[Unit] = {
 
     val res: List[List[String]] = bestModelsToRead.indices.map(idx => {
       List(List(EMFuncSegState.extractRegimesLimitsProbabilisticThreshold(bestModelsToRead(idx).membershipProbabilities).toArray

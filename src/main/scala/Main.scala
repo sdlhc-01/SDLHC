@@ -22,8 +22,6 @@ object Main {
     require(Files.exists(Paths.get(pathOutput)), "Error: mandatory second argument output directory ".concat(pathOutput).concat(" doesn't exists"))
 
     val pathDirOutputSegmentation = pathOutput.concat("/segmentation/")
-    val pathOutputModels = pathDirOutputSegmentation.concat("tempSegment.obj")
-
     val data = InputOutput.readTS(pathDataInput)
 
     run(data, pathDirOutputSegmentation, verbose= true)
@@ -51,6 +49,7 @@ object Main {
       val idxRange = data.indices.filter(_ >= ((idxBatch: Double) * batchSize)).filter(_ < ((1 + idxBatch: Double) * batchSize))
       val bestModels: List[EMFuncSegState] = Tools.time {
         idxRange.par.map(idx => {
+          println(">>>".concat(idx.toString))
           EM.getBestModel(data(idx), functionBasis, optimModelStrategy, evaluationCriterion = evaluationCriterion)
         }).toList
       }

@@ -54,18 +54,19 @@ object PostProcessing {
 
       val polyBaseValue: DenseMatrix[Double] = initPolyBaseValue(timeRegime, degreeRegressionBase)
 
-      var res = segmentation.Tools.polyRegression(X = polyBaseValue, Y = sequenceRegimePostProcessed)
-
-      if (!centerValue) {
-        res = DenseVector.vertcat(res, DenseVector(mu))
+      val res0 = segmentation.Tools.polyRegression(X = polyBaseValue, Y = sequenceRegimePostProcessed)
+      val res = if (!centerValue) {
+        DenseVector.vertcat(res0, DenseVector(mu))
       }
-      if (!scaleValue) {
-        res = DenseVector.vertcat(res, DenseVector(sigma))
+      else if (!scaleValue) {
+        DenseVector.vertcat(res0, DenseVector(sigma))
       }
-      if (!scaleSupport) {
-        res = DenseVector.vertcat(res, DenseVector(duration))
+      else if (!scaleSupport) {
+        DenseVector.vertcat(res0, DenseVector(duration))
       }
-
+      else {
+        res0
+      }
       res
     })
 

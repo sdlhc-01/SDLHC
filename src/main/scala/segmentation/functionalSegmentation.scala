@@ -132,11 +132,13 @@ package object EM {
   }
 
   def hessian(membershipProbabilities: DenseMatrix[Double], polyBaseValue: DenseMatrix[Double]): DenseMatrix[Double] = {
-    (0 until membershipProbabilities.cols).map(seg1 =>
-      (0 until membershipProbabilities.cols).map(seg2 => {
+    val range = 0 until membershipProbabilities.cols
+
+    range.map(seg1 =>
+      range.map(seg2 => {
         hessianBlock(seg1, seg2, membershipProbabilities, polyBaseValue)
       }).reduce((a, b) => DenseMatrix.horzcat(a, b))
-    ).reduce((a, b) => DenseMatrix.vertcat(a, b))
+    ).reduce(DenseMatrix.vertcat(_, _))
   }
 
   def hessianBlock(segment1: Int, segment2: Int, segmentMembership: DenseMatrix[Double], polyBaseValue: DenseMatrix[Double]): DenseMatrix[Double] = {

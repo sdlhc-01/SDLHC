@@ -49,5 +49,6 @@ vignettes/*.pdf
 *.class
 *.log
 *.metals
+*.progress
 
 # End of https://www.gitignore.io/api/r,scala
