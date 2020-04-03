@@ -9,5 +9,5 @@ This repository contains the Scala / R source code that implements the time seri
 
 The scala code must be built using maven using the file ./build.sh
 
-*run_benchmark.r* is the script to perform benchmark runs of SDLHC on the 3 datasets.
+*run_benchmark.r*, located in ./src/main/R/ is the script to perform benchmark runs of SDLHC on the 3 datasets.
 
